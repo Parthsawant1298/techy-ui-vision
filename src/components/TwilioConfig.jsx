@@ -1,8 +1,7 @@
-
 import React, { useState } from 'react';
 import SecretInput from './ui/secret-input';
 import RadioCard from './ui/radio-card';
-import { toast } from '@/components/ui/sonner';
+import { toast } from 'sonner';
 
 const TwilioConfig = () => {
   const [configValues, setConfigValues] = useState({
