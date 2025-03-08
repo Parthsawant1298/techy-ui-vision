@@ -1,0 +1,64 @@
+
+import React, { useState } from 'react';
+import { cn } from '@/lib/utils';
+
+const SecretInput = ({ 
+  value, 
+  onChange, 
+  placeholder = "Enter value", 
+  className, 
+  ...props 
+}) => {
+  const [visible, setVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setVisible(!visible);
+  };
+
+  return (
+    <div className="relative w-full">
+      <input
+        type={visible ? "text" : "password"}
+        value={value}
+        onChange={onChange}
+        className={cn(
+          "w-full rounded-md px-4 py-2 glass-panel text-white transition duration-200 focus:outline-none focus:ring-1 focus:ring-tech-blue/50",
+          className
+        )}
+        placeholder={placeholder}
+        {...props}
+      />
+      <button
+        type="button"
+        onClick={toggleVisibility}
+        className="absolute inset-y-0 right-0 pr-3 flex items-center text-white/70 hover:text-white transition-colors"
+        aria-label={visible ? "Hide value" : "Show value"}
+      >
+        {visible ? (
+          <EyeOffIcon className="w-5 h-5" />
+        ) : (
+          <EyeIcon className="w-5 h-5" />
+        )}
+      </button>
+    </div>
+  );
+};
+
+// Simple eye icons for visibility toggle
+const EyeIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+    <circle cx="12" cy="12" r="3" />
+  </svg>
+);
+
+const EyeOffIcon = ({ className }) => (
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M9.88 9.88a3 3 0 1 0 4.24 4.24" />
+    <path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68" />
+    <path d="M6.61 6.61A13.526 13.526 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61" />
+    <line x1="2" x2="22" y1="2" y2="22" />
+  </svg>
+);
+
+export default SecretInput;
